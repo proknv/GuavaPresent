@@ -19,29 +19,6 @@ import static org.assertj.core.api.Assertions.*;
  */
 public class JoinerTest {
 
-    public String buildString(List<String> stringList, String delimiterStr){
-        StringBuilder builder = new StringBuilder();
-        for (String s : stringList) {
-            if(s !=null){
-                builder.append(s).append(delimiterStr);
-            }
-        }
-        builder.setLength(builder.length() - delimiterStr.length());
-        return builder.toString();
-    }
-
-    @Test
-    public void testJoinWithoutGuava(){
-        //initialization
-        String expectedString = "First, Second, Third, Fourth";
-        List<String> listOfStrings = Arrays.asList("First", "Second", "Third", null, "Fourth", null);
-        String delimiter = ", ";
-        //joining
-        String joinedString = buildString(listOfStrings, delimiter);
-        //checking
-        assertThat(joinedString).isEqualTo(expectedString);
-    }
-
     @Test
     public void testJoinerWithSkippedNulls(){
         //initialization
@@ -66,6 +43,22 @@ public class JoinerTest {
         assertThat(joinedString).isEqualTo(expectedString);
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void testJoinerImmutability(){
+        //initialization
+        String expectedString = "First, Second, Third, Fourth";
+        List<String> listOfStrings = Arrays.asList("First", "Second", "Third", null, "Fourth", null);
+        String delimiter = ", ";
+        Joiner joiner = Joiner.on(delimiter).skipNulls();
+        //we can't use useForNull here for already configured joiner
+        joiner.useForNull("Empty");
+        //joining
+        String joinedString = joiner.join(listOfStrings);
+        //checking
+        assertThat(joinedString).isEqualTo(expectedString);
+
+    }
+
     //The Joiner class can be used with classes that implement the Appendable interface.
     @Test
     public void testJoinerWithAppendable(){
@@ -81,7 +74,7 @@ public class JoinerTest {
         assertThat(stringBuilder.toString()).isEqualTo(expectedString);
     }
 
-    //The MapJoiner method works in the same way as the Joiner class
+    //The Joiner.MapJoiner class works in the same way as the Joiner class
     // but it joins the given strings as key value pairs with a specified delimiter.
     @Test
     public void testMapJoiner(){

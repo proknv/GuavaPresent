@@ -11,7 +11,22 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 8/31/14.
+ *
+ *
+ * The Function interface contains only two methods:
+ *
+ * public interface Function<F, T> {
+ *      T apply(F input);
+ *      boolean equals(Object object);
+ * }
+ *
+ * The purpose of the Function interface, transforming an object while hiding the implementation details.
+ *
+ * A good Function implementation should have no side effects, meaning the object passed as an argument should remain
+ * unchanged after the apply method has been called.
+ *
+ * The Functions class is a collection of useful methods for working with Function instances
+ *
  */
 public class FunctionsTest {
 
@@ -32,7 +47,23 @@ public class FunctionsTest {
         assertThat(mapFunction.apply(testKey)).isNull();
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFunctionsForMapNotFound(){
+        //initialization
+        Map<String, String> dataMap = Maps.newHashMap();
+        dataMap.put("Key1", "Value1");
+        dataMap.put("Key2", "Value2");
+        dataMap.put("Key3", "Value3");
+        //execution
+        Function<String, String> mapFunction = Functions.forMap(dataMap);
+        //checking
+        String testKey = "Key5";
+        mapFunction.apply(testKey);
+    }
+
     @Test
+    //Functions.compose method that takes two Function instances as arguments and returns a single Function instance
+    // that is a composition of the two
     public void testComposeFunctions(){
         //initialization
         //first function

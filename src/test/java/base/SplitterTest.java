@@ -11,7 +11,6 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 8/30/14.
  *
  * The Splitter class performs the inverse of the functions of the Joiner class.
  * A Splitter class can split on a single character, a fixed string, a java.util.regex.Pattern package,

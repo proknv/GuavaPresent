@@ -13,7 +13,14 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 9/22/14.
+ * The Ordering class provides us with tools that we need for applying different sorting techniques powerfully and concisely.
+ * Ordering is an abstract class.
+ *
+ * There are two ways in which you can create an instance of Ordering:
+ *
+ * - Creating a new instance and providing an implementation for the compare() method.
+ * - Using the static Ordering.from() method that creates an instance of Ordering from an existing Comparator.
+
  */
 public class CollectionsOrderingTest {
 
@@ -78,14 +85,14 @@ public class CollectionsOrderingTest {
     public void testSorting(){
         Ordering<City> cityOrdering = Ordering.from(cityByPopulationComparator);
         List<City> orderedByCityPopulation = cityOrdering.immutableSortedCopy(cities);
-        assertThat(orderedByCityPopulation).hasSize(3).extracting("population").containsSequence(1000000, 4000000, 8000000);
+        assertThat(orderedByCityPopulation).hasSize(3).extracting("name").containsSequence("Odessa", "Kiev", "London");
     }
 
     @Test
     public void testReverseSorting(){
         Ordering<City> cityOrdering = Ordering.from(cityByPopulationComparator).reverse();
         List<City> orderedByCityPopulation = cityOrdering.immutableSortedCopy(cities);
-        assertThat(orderedByCityPopulation).hasSize(3).extracting("population").containsSequence(8000000, 4000000, 1000000);
+        assertThat(orderedByCityPopulation).hasSize(3).extracting("name").containsSequence("London", "Kiev", "Odessa");
     }
 
     @Test
@@ -95,5 +102,35 @@ public class CollectionsOrderingTest {
         List<City> orderedByCityPopulation = cityOrdering.immutableSortedCopy(cities);
         assertThat(orderedByCityPopulation).hasSize(4).extracting("name").containsSequence(
                 "Odessa", "Boston", "Kiev", "London");
+    }
+
+    @Test
+    public void testPickingTopValues(){
+        Ordering<City> cityOrdering = Ordering.from(cityByPopulationComparator);
+        List<City> topTwo = cityOrdering.greatestOf(cities, 2);
+        assertThat(topTwo).hasSize(2).extracting("name").containsOnly("Kiev", "London");
+    }
+
+    @Test
+    public void testPickingBottomValues(){
+        Ordering<City> cityOrdering = Ordering.from(cityByPopulationComparator);
+        List<City> topTwo = cityOrdering.leastOf(cities, 2);
+        assertThat(topTwo).hasSize(2).extracting("name").containsOnly("Odessa", "Kiev");
+    }
+
+    @Test
+    public void testMaxMinValues(){
+        Ordering<City> cityOrdering = Ordering.from(cityByPopulationComparator);
+        City maxPopulationCity = cityOrdering.max(cities);
+        assertThat(maxPopulationCity.getName()).isEqualTo("London");
+        City minPopulationCity = cityOrdering.min(cities);
+        assertThat(minPopulationCity.getName()).isEqualTo("Odessa");
+    }
+
+    @Test
+    public void testWithMutableList(){
+        Ordering<City> cityOrdering = Ordering.from(cityByPopulationComparator);
+        cities.sort(cityOrdering);
+        assertThat(cities).extracting("name").containsOnly("Odessa", "Kiev", "London");
     }
 }
