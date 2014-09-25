@@ -5,7 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 import static com.google.common.base.Preconditions.*;
 
 /**
- * Created by proknv on 8/31/14.
+ * The Preconditions class is a collection of static methods used to verify the state of our code.
+ * Preconditions are very important because they guarantee our expectations for successful code execution are met.
  */
 public class PreconditionsTest {
 
@@ -31,5 +32,11 @@ public class PreconditionsTest {
         checkArgument(passedArgument > 0, "Invalid argument has been passed!");
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testIndexOutOfBounds(){
+        int arrayIndex = 5;
+        int[] array = new int[4];
+        checkElementIndex(arrayIndex, array.length, "Invalid element index used!");
+    }
 
 }

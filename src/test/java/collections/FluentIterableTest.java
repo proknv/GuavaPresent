@@ -11,14 +11,15 @@ import org.junit.Test;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 9/2/14.
- *
  * The FluentIterable class presents a powerful interface for working with Iterable instances
  * in the fluent style of programming.
+ *
+ * The fluent programming style allows us to chain method calls together, making for a more readable code.
  */
 public class FluentIterableTest {
 
@@ -50,6 +51,9 @@ public class FluentIterableTest {
         assertThat(personsFilteredByAge).containsOnly(person2, person4);
     }
 
+    //The FluentIterable.transform() method is a mapping operation where Function is applied to each element.
+    //Notice using toList() method to have final result as a list. There are a bunch of methods like the toSet(), toMap(),
+    // to SortedList(), toSortedSet(), uniqueIndex() available.
     @Test
     public void testTransform(){
         List<String> personDetails = FluentIterable.from(persons).transform(new Function<Person, String>() {
@@ -59,6 +63,18 @@ public class FluentIterableTest {
             }
         }).toList();
         assertThat(personDetails).hasSize(persons.size()).contains("Rubble, Betty, 31");
+    }
+
+    @Test
+    public void testFluentIterableToMap(){
+        Map<String, Person> personDetails = FluentIterable.from(persons).uniqueIndex(new Function<Person, String>() {
+            @Override
+            public String apply(Person input) {
+                return Joiner.on(' ').join(input.getLastName(), input.getFirstName());
+            }
+        });
+        assertThat(personDetails).hasSize(persons.size());
+        assertThat(personDetails.get("Rubble Betty")).isEqualTo(person3);
     }
 
 }

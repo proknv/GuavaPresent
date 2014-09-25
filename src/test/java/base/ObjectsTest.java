@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 8/31/14.
+ * Guava provides some simple utility classes for working with objects in java: Objects, MoreObjects, ComparisonChain.
  */
 public class ObjectsTest {
 
@@ -37,6 +37,8 @@ public class ObjectsTest {
                     .toString();
         }
 
+        //ComparisonChain class will stop making comparisons with the first non-zero result,
+        // the only way a zero will be returned is if all comparisons result in a zero
         @Override
         public int compareTo(TestClass o) {
             return ComparisonChain.start()

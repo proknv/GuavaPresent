@@ -6,12 +6,10 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 8/30/14.
- *
  * The CharMatcher class provides functionality for working with characters based on the presence or absence
  * of a type of character or a range of characters.
  *
- * The CharMatcher class is powerful and is very useful when it comes to working with strings in Java.
+ * The CharMatcher class is powerful and is very useful class for text processing.
  */
 public class CharMatcherTest {
 

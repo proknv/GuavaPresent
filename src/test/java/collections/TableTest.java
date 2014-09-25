@@ -10,7 +10,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 9/8/14.
+ * A Table is a collection that takes two keys, and maps those keys to a single value.
  */
 public class TableTest {
 
@@ -30,6 +30,7 @@ public class TableTest {
 
         //checking
         assertThat(table.contains(1, 2)).isTrue();
+        assertThat(table.contains(3, 2)).isFalse();
         assertThat(table.containsColumn(2)).isTrue();
         assertThat(table.containsRow(3)).isTrue();
         assertThat(table.containsValue("value31")).isTrue();
@@ -42,6 +43,10 @@ public class TableTest {
 
     }
 
+    //The table provides some great methods for obtaining different views of the underlying data in the table:
+    //The column() method returns a map where the keys are all row-value mappings with the given column's key value.
+    //The row() method returns the converse, returning column-value mappings with the given row's key value.
+    //Notice, the maps returned are live views.
     @Test
     public void testTableViews(){
         //column view
@@ -54,5 +59,15 @@ public class TableTest {
         columnView.put(1, "value_11");
         assertThat(table.get(1, 1)).isEqualTo("value_11");
     }
+
+
+    //There are other implementations of the table in Guava:
+    // 1. ArrayTable is an implementation of the table backed by a two-dimensional array.
+    // 2. There is an ImmutableTable implementation. Since ImmutableTable can't be updated after it's created,
+    //      the row, key, and values are added using ImmutableTable.Builder, which leverages a fluent interface
+    //      for ease of construction.
+    // 3. A TreeBasedTable table where the row and column keys are ordered, either by the natural order or by
+    // specified comparators for the row and column keys.
+
 
 }

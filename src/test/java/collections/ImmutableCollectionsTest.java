@@ -8,8 +8,6 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 9/22/14.
- *
  * If we don't explicitly have a need for a mutable collection, we should always favor using an immutable one
  */
 public class ImmutableCollectionsTest {

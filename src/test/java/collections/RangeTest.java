@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 9/8/14.
+ *
  */
 public class RangeTest {
 

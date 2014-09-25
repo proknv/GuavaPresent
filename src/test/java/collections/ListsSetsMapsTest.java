@@ -37,10 +37,10 @@ public class ListsSetsMapsTest {
     @Test
     public void testListSetMapCreation(){
         //lists
-        List<String> arrayListOfStrings = Lists.newArrayList();
-        assertThat(arrayListOfStrings).isExactlyInstanceOf(ArrayList.class);
-        List<String> linkedListOfStrings = Lists.newLinkedList();
-        assertThat(linkedListOfStrings).isExactlyInstanceOf(LinkedList.class);
+        List<Person> arrayListOfPersons = Lists.newArrayList(person1, person2, person3);
+        assertThat(arrayListOfPersons).isExactlyInstanceOf(ArrayList.class);
+        List<Person> linkedListOfPersons = Lists.newLinkedList(arrayListOfPersons);
+        assertThat(linkedListOfPersons).isExactlyInstanceOf(LinkedList.class);
         //sets
         Set<String> hashSetOfStrings = Sets.newHashSet();
         assertThat(hashSetOfStrings).isExactlyInstanceOf(HashSet.class);
@@ -57,6 +57,7 @@ public class ListsSetsMapsTest {
         assertThat(treeMap).isExactlyInstanceOf(TreeMap.class);
     }
 
+    //The Lists.partition() method returns sublists of size n from a given list.
     @Test
     public void testListPartition(){
         List<List<Person>> sublists = Lists.partition(persons, 2);
@@ -65,6 +66,8 @@ public class ListsSetsMapsTest {
         assertThat(sublists.get(1)).containsOnly(person3, person4);
     }
 
+    //SetView is a static, abstract inner class of the Sets class and
+    // represents an unmodifiable view of a given Set instance.
     @Test
     public void testSets(){
         Set<String> s1 = Sets.newHashSet("1","2","3");
@@ -83,6 +86,8 @@ public class ListsSetsMapsTest {
         assertThat(sUnion).containsOnly("1", "2", "3", "4");
     }
 
+    //It's a very common practice to have a collection of objects and have the need to create a map of those objects,
+    // usually to serve as some sort of cache or to enable fast lookups.
     @Test
     public void testMapsUniqueIndex(){
         Map<String, Person> personsMap = Maps.uniqueIndex(persons, new Function<Person, String>() {
@@ -99,6 +104,8 @@ public class ListsSetsMapsTest {
         );
     }
 
+    //The Maps.toMap() method takes a set of objects to be used as keys, and Function is applied to each key object
+    // to generate the value for entry into a map instance.
     @Test
     public void testMapsToMap(){
         Map<Person, Integer> personAges = Maps.toMap(persons, new Function<Person, Integer>() {
@@ -115,6 +122,7 @@ public class ListsSetsMapsTest {
         );
     }
 
+    //Map transformation methods
     @Test
     public void testMapsTransformations(){
         Map<Person, Integer> personAges = Maps.toMap(persons, new Function<Person, Integer>() {
