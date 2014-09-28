@@ -6,8 +6,6 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 8/30/14.
- *
  * In Java, there are six standard character sets that are supported on every Java platform.
  * The Charsets class provides static final references to the six character sets supported on the Java platform.
  */

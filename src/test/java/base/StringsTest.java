@@ -6,8 +6,6 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 8/30/14.
- *
  * The Strings class provides a few handy utility methods for working with strings.
  */
 public class StringsTest {

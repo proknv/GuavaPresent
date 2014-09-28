@@ -16,6 +16,7 @@ public class ImmutableCollectionsTest {
     private Multimap<Integer, String> multimap;
     private BiMap<Integer, String> biMap;
     private Set<String> setOfValues;
+    private Table<Integer, Integer, String> table;
 
     //Immutable collections have handy builders which allows to fill up the collection in a fluent style
     @Before
@@ -34,6 +35,12 @@ public class ImmutableCollectionsTest {
                 .add("AAA")
                 .add("BBB")
                 .add("CCC")
+                .build();
+        table = new ImmutableTable.Builder<Integer, Integer, String>()
+                .put(1, 1, "Value11")
+                .put(1, 2, "Value12")
+                .put(2, 1, "Value21")
+                .put(2, 2, "Value22")
                 .build();
     }
 
@@ -54,6 +61,12 @@ public class ImmutableCollectionsTest {
         assertThat(setOfValues).containsExactly("AAA", "BBB", "CCC");
     }
 
+    @Test
+    public void testImmutableTableCreation(){
+        assertThat(table.get(1, 1)).isEqualTo("Value11");
+        assertThat(table.get(2, 1)).isEqualTo("Value21");
+    }
+
     @Test(expected = UnsupportedOperationException.class)
     public void testImmutableMultiMapImmutability(){
         multimap.put(4, "JJJ");
@@ -69,4 +82,8 @@ public class ImmutableCollectionsTest {
         setOfValues.add("DDD");
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void testImmutableTableImmutability(){
+        table.put(3, 1, "Value31");
+    }
 }

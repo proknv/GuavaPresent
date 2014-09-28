@@ -11,8 +11,6 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Created by proknv on 8/30/14.
- *
  * Using the Joiner class
  *
  * Once created, a Joiner class is immutable, and therefore thread-safe
