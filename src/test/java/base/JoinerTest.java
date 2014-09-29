@@ -11,9 +11,12 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * Using the Joiner class
+ * Joiner class is used to compose a string from various iterables.
  *
+ * Joiner instance is created by calling the on() method and specifying the delimiter to be used.
  * Once created, a Joiner class is immutable, and therefore thread-safe
+ *
+ * Once you configure a Joiner you call its join() method on iterable instance
  */
 public class JoinerTest {
 

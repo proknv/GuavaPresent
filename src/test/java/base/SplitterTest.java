@@ -15,7 +15,9 @@ import static org.assertj.core.api.Assertions.*;
  * The Splitter class performs the inverse of the functions of the Joiner class.
  * A Splitter class can split on a single character, a fixed string, a java.util.regex.Pattern package,
  * a string representing a regular expression, or a CharMatcher class.
- * A Splitter instance is created by calling the on method and specifying the separator to be used.
+ *
+ * A Splitter instance is created by calling the on() method and specifying the separator to be used.
+ *
  * Once you have the Splitter instance, you will call the split() method, which returns an iterable object,
  * containing the individual string parts from the source.
  *
